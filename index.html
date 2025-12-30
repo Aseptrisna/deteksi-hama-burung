@@ -83,10 +83,11 @@
             </button>
         </div>
 
-        <div class="hidden md:block">
-            <div id="mqtt-status-dot" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors" title="MQTT Status">
+        <div class="hidden md:block text-center">
+            <div id="mqtt-status-dot" class="w-10 h-10 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors" title="MQTT Status">
                 <i class="fas fa-wifi text-xs"></i>
             </div>
+            <p id="protocol-label" class="text-[8px] text-slate-500 mt-2 font-bold uppercase tracking-widest">WS</p>
         </div>
     </nav>
 
@@ -96,7 +97,7 @@
         <!-- Header Section -->
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 px-2">
             <div>
-                <h1 id="page-title" class="text-3xl font-extrabold tracking-tight">Monitoring Sawah</h1>
+                <h1 id="page-title" class="text-3xl font-extrabold tracking-tight text-slate-900">Monitoring Sawah</h1>
                 <div class="flex items-center gap-2 text-slate-500 font-medium">
                     <span id="status-indicator" class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
                     <span id="page-subtitle">CAM-P056 • Lahan Padi</span>
@@ -157,7 +158,7 @@
                         <h3 id="hama-status" class="text-3xl font-black tracking-tight text-white uppercase">AKTIF</h3>
                     </div>
                     <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group">
-                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Sync Terakhir</p>
+                        <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2 text-slate-400">Sync Terakhir</p>
                         <h3 id="last-sync" class="text-3xl font-black text-slate-800 tracking-tight">--:--</h3>
                         <div class="mt-2 text-xs font-bold text-emerald-500 flex items-center gap-1">
                             <i class="fas fa-check-circle"></i> Data Terkini
@@ -219,7 +220,7 @@
                         <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fas fa-camera-retro text-slate-200 text-4xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-800 text-slate-800">Data Tidak Ditemukan</h3>
+                        <h3 class="text-xl font-bold text-slate-800">Data Tidak Ditemukan</h3>
                         <p class="text-slate-400 font-medium">Silakan sesuaikan filter waktu atau tanggal.</p>
                     </div>
                 </div>
@@ -231,7 +232,7 @@
                     <div class="bg-white p-10 rounded-[50px] shadow-sm border border-slate-100 space-y-8">
                         <div>
                             <h3 class="text-2xl font-black tracking-tight text-slate-900">Kendali Unit</h3>
-                            <p class="text-slate-400 font-medium text-slate-400">Intervensi manual ke perangkat lapangan</p>
+                            <p class="text-slate-400 font-medium">Intervensi manual ke perangkat lapangan</p>
                         </div>
                         
                         <div class="space-y-4">
@@ -255,7 +256,7 @@
                                     <div class="w-14 h-8 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-emerald-500"></div>
                                 </label>
                             </div>
-                            <p class="text-slate-400 text-sm leading-relaxed font-medium text-slate-400">Sistem akan otomatis memicu sirine via MQTT jika algoritma YOLOv8 mendeteksi aktivitas hama burung yang melewati ambang batas.</p>
+                            <p class="text-slate-400 text-sm leading-relaxed font-medium">Sistem akan otomatis memicu sirine via MQTT jika algoritma YOLOv8 mendeteksi aktivitas hama burung yang melewati ambang batas.</p>
                         </div>
                         
                         <div class="pt-10 border-t border-slate-800">
@@ -300,13 +301,15 @@
         const API_BASE = 'https://api-iot-log.lskk.co.id/v1/data/log-fast';
         const IMG_BASE = 'https://smartparking.pptik.id/data/data/';
         
-        // MQTT Credentials & Settings
+        // MQTT Auto-Config Logic for WSS
+        const isSecure = window.location.protocol === 'https:';
+        
         const MQTT_CONFIG = {
             server: 'rmq-panic-button.pptik.id',
-            // Gunakan port 15675 untuk WS (WebSocket) non-SSL
-            // Gunakan port 15676 untuk WSS (Secure WebSocket)
-            port: location.protocol === 'https:' ? 15676 : 15675, 
-            path: '/ws', // Path standar WebSocket RabbitMQ
+            // Port 15676 untuk WSS (HTTPS), Port 15675 untuk WS (HTTP)
+            port: isSecure ? 15676 : 15675, 
+            path: '/ws', 
+            useSSL: isSecure,
             user: '/panic:panic',
             pass: '5bG0rtnJwARlalg',
             topic: 'Aktuator',
@@ -317,6 +320,8 @@
         let sirenActive = false;
 
         window.onload = () => {
+            document.getElementById('protocol-label').innerText = isSecure ? 'WSS (Secure)' : 'WS (Standard)';
+            
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('filter-date').value = today;
             
@@ -397,7 +402,7 @@
 
                 if (result.success && result.data.data.length > 0) {
                     emptyState.classList.add('hidden');
-                    result.data.forEach(item => {
+                    result.data.data.forEach(item => {
                         const card = `
                             <div class="gallery-card group bg-white p-5 rounded-[40px] shadow-sm border border-slate-50 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 cursor-pointer" 
                                  onclick="openPreview('${IMG_BASE}${item.value}', '${item.datetime}', '${item.guid_device}')">
@@ -440,27 +445,24 @@
         function initMQTT() {
             const clientId = "web_agri_" + Math.random().toString(16).substr(2, 6);
             
-            // Perbaikan Konstruktor: host, port, path, clientId
+            // Konstruktor: host, port, path, clientId
             mqttClient = new Paho.MQTT.Client(MQTT_CONFIG.server, Number(MQTT_CONFIG.port), MQTT_CONFIG.path, clientId);
 
             mqttClient.onConnectionLost = onConnectionLost;
             
             const options = {
-                // Gunakan SSL hanya jika halaman diakses via HTTPS
-                useSSL: location.protocol === 'https:', 
+                useSSL: MQTT_CONFIG.useSSL,
                 userName: MQTT_CONFIG.user,
                 password: MQTT_CONFIG.pass,
                 onSuccess: onConnect,
                 onFailure: (err) => {
                     console.error("MQTT Connection Failed:", err);
-                    document.getElementById('mqtt-status-dot').className = "w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors";
+                    document.getElementById('mqtt-status-dot').className = "w-10 h-10 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors";
                     
-                    // Jika gagal pada WSS, coba paksa ke WS jika diizinkan browser
-                    if(options.useSSL && err.errorCode === 7) {
-                        console.log("Retrying with non-SSL...");
-                        options.useSSL = false;
-                        MQTT_CONFIG.port = 15675;
-                        setTimeout(initMQTT, 2000);
+                    // Auto-fallback jika WSS gagal karena alasan sertifikat atau socket
+                    if (options.useSSL) {
+                        console.log("Retrying connection settings...");
+                        setTimeout(initMQTT, 5000);
                     }
                 }
             };
@@ -469,15 +471,15 @@
         }
 
         function onConnect() {
-            console.log("MQTT Connected Successfully to " + MQTT_CONFIG.server);
-            document.getElementById('mqtt-status-dot').className = "w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-500 transition-colors";
+            console.log("MQTT Connected Successfully to " + MQTT_CONFIG.server + " on port " + MQTT_CONFIG.port);
+            document.getElementById('mqtt-status-dot').className = "w-10 h-10 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-emerald-500 transition-colors";
             document.getElementById('mqtt-ping-dot').classList.replace('bg-slate-500', 'bg-emerald-500');
             document.getElementById('mqtt-ping-dot').classList.add('animate-pulse');
         }
 
         function onConnectionLost(response) {
             console.log("MQTT Connection Lost:", response.errorMessage);
-            document.getElementById('mqtt-status-dot').className = "w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors";
+            document.getElementById('mqtt-status-dot').className = "w-10 h-10 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors";
             document.getElementById('mqtt-ping-dot').className = "w-2.5 h-2.5 bg-slate-500 rounded-full";
             setTimeout(initMQTT, 5000); 
         }
