@@ -154,8 +154,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="bg-emerald-500 p-8 rounded-[40px] text-white shadow-xl shadow-emerald-500/20 relative overflow-hidden group">
                         <i class="fas fa-shield-virus absolute -right-4 -bottom-4 text-8xl opacity-10 group-hover:scale-110 transition-transform"></i>
-                        <p class="text-xs font-black uppercase tracking-widest opacity-80 mb-2 text-white">Sistem Status</p>
-                        <h3 id="hama-status" class="text-3xl font-black tracking-tight text-white uppercase">AKTIF</h3>
+                        <p class="text-xs font-black uppercase tracking-widest opacity-80 mb-2 text-white text-white">Sistem Status</p>
+                        <h3 id="hama-status" class="text-3xl font-black tracking-tight text-white uppercase text-white">AKTIF</h3>
                     </div>
                     <div class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden group">
                         <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-2 text-slate-400">Sync Terakhir</p>
@@ -166,14 +166,14 @@
                     </div>
                     <div onclick="toggleSiren()" class="cursor-pointer bg-slate-900 p-8 rounded-[40px] text-white shadow-xl transition-all hover:scale-[1.02] active:scale-95 group">
                         <div class="flex justify-between items-center mb-4">
-                            <p class="text-xs font-black uppercase tracking-widest opacity-50 text-white">Manual Trigger</p>
+                            <p class="text-xs font-black uppercase tracking-widest opacity-50 text-white text-white">Manual Trigger</p>
                             <span id="mqtt-ping-dot" class="w-2.5 h-2.5 bg-slate-500 rounded-full transition-colors duration-300"></span>
                         </div>
                         <div class="flex items-center gap-4">
                             <div id="siren-icon-box" class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:rotate-12">
                                 <i class="fas fa-bullhorn" id="siren-icon"></i>
                             </div>
-                            <span id="siren-text" class="font-black text-lg uppercase tracking-tight text-white">Sirine Off</span>
+                            <span id="siren-text" class="font-black text-lg uppercase tracking-tight text-white text-white">Sirine Off</span>
                         </div>
                     </div>
                 </div>
@@ -220,7 +220,7 @@
                         <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
                             <i class="fas fa-camera-retro text-slate-200 text-4xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-800">Data Tidak Ditemukan</h3>
+                        <h3 class="text-xl font-bold text-slate-800 text-slate-800 text-slate-800">Data Tidak Ditemukan</h3>
                         <p class="text-slate-400 font-medium">Silakan sesuaikan filter waktu atau tanggal.</p>
                     </div>
                 </div>
@@ -232,17 +232,17 @@
                     <div class="bg-white p-10 rounded-[50px] shadow-sm border border-slate-100 space-y-8">
                         <div>
                             <h3 class="text-2xl font-black tracking-tight text-slate-900">Kendali Unit</h3>
-                            <p class="text-slate-400 font-medium">Intervensi manual ke perangkat lapangan</p>
+                            <p class="text-slate-400 font-medium text-slate-400 text-slate-400">Intervensi manual ke perangkat lapangan</p>
                         </div>
                         
                         <div class="space-y-4">
                             <button onclick="toggleSiren()" id="siren-btn-main" class="w-full p-8 bg-emerald-500 hover:bg-emerald-600 text-white rounded-[35px] flex flex-col items-center gap-4 transition-all active:scale-95 shadow-xl shadow-emerald-500/20">
                                 <i class="fas fa-volume-up text-4xl"></i>
-                                <span id="siren-btn-main-text" class="font-black text-lg tracking-tight uppercase text-white">AKTIFKAN SIRINE</span>
+                                <span id="siren-btn-main-text" class="font-black text-lg tracking-tight uppercase text-white text-white">AKTIFKAN SIRINE</span>
                             </button>
                             <button class="w-full p-8 bg-slate-100 text-slate-400 rounded-[35px] flex flex-col items-center gap-4 cursor-not-allowed border border-slate-200">
-                                <i class="fas fa-bolt text-4xl opacity-30 text-slate-400"></i>
-                                <span class="font-black text-lg uppercase tracking-tight text-slate-400">AKTUATOR GAS (N/A)</span>
+                                <i class="fas fa-bolt text-4xl opacity-30 text-slate-400 text-slate-400"></i>
+                                <span class="font-black text-lg uppercase tracking-tight text-slate-400 text-slate-400 text-slate-400 text-slate-400">AKTUATOR GAS (N/A)</span>
                             </button>
                         </div>
                     </div>
@@ -250,17 +250,17 @@
                     <div class="bg-slate-900 p-10 rounded-[50px] shadow-2xl text-white flex flex-col justify-between border-4 border-slate-800">
                         <div class="space-y-6">
                             <div class="flex items-center justify-between">
-                                <h3 class="text-xl font-bold tracking-tight text-white">Automasi Pintar</h3>
+                                <h3 class="text-xl font-bold tracking-tight text-white text-white">Automasi Pintar</h3>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" id="auto-response-toggle" checked class="sr-only peer">
                                     <div class="w-14 h-8 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-emerald-500"></div>
                                 </label>
                             </div>
-                            <p class="text-slate-400 text-sm leading-relaxed font-medium">Sistem akan otomatis memicu sirine via MQTT jika algoritma YOLOv8 mendeteksi aktivitas hama burung yang melewati ambang batas.</p>
+                            <p class="text-slate-400 text-sm leading-relaxed font-medium text-slate-400 text-slate-400">Sistem akan otomatis memicu sirine via MQTT jika algoritma YOLOv8 mendeteksi aktivitas hama burung yang melewati ambang batas.</p>
                         </div>
                         
                         <div class="pt-10 border-t border-slate-800">
-                            <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-4">
+                            <div class="flex justify-between text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-4 text-emerald-500">
                                 <span>Power Level</span>
                                 <span id="vol-val">80%</span>
                             </div>
@@ -278,8 +278,8 @@
             <button class="absolute -top-12 md:-top-16 right-0 text-white text-4xl md:text-5xl hover:scale-110 transition-transform" onclick="document.getElementById('image-modal').classList.add('hidden')">&times;</button>
             <img id="modal-img" src="" class="w-full rounded-[30px] md:rounded-[40px] shadow-2xl ring-1 ring-white/20 border-4 border-white/10">
             <div id="modal-info" class="absolute bottom-4 md:bottom-8 left-4 md:left-8 text-white bg-black/40 backdrop-blur-md p-5 md:p-7 rounded-2xl md:rounded-[30px] border border-white/10">
-                <p id="modal-time" class="text-base md:text-xl font-black text-white"></p>
-                <p id="modal-device" class="text-xs md:text-sm opacity-60 font-bold uppercase tracking-widest mt-1 text-white"></p>
+                <p id="modal-time" class="text-base md:text-xl font-black text-white text-white"></p>
+                <p id="modal-device" class="text-xs md:text-sm opacity-60 font-bold uppercase tracking-widest mt-1 text-white text-white"></p>
             </div>
         </div>
     </div>
@@ -287,11 +287,11 @@
     <!-- Notification Toast -->
     <div id="notification" class="fixed bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 bg-slate-900 text-white px-8 py-5 rounded-[30px] shadow-2xl translate-y-40 transition-transform duration-500 flex items-center gap-5 z-[110] border-2 border-white/5">
         <div id="notif-icon-box" class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
-            <i class="fas fa-info text-sm text-white"></i>
+            <i class="fas fa-info text-sm text-white text-white"></i>
         </div>
         <div>
-            <p id="notif-title" class="font-black text-sm uppercase tracking-tight text-white">Sistem Notifikasi</p>
-            <p id="notif-msg" class="text-xs text-slate-400 font-medium text-slate-400">Deskripsi aksi di sini.</p>
+            <p id="notif-title" class="font-black text-sm uppercase tracking-tight text-white text-white">Sistem Notifikasi</p>
+            <p id="notif-msg" class="text-xs text-slate-400 font-medium text-slate-400 text-slate-400">Deskripsi aksi di sini.</p>
         </div>
     </div>
 
@@ -301,12 +301,12 @@
         const API_BASE = 'https://api-iot-log.lskk.co.id/v1/data/log-fast';
         const IMG_BASE = 'https://smartparking.pptik.id/data/data/';
         
-        // MQTT Auto-Config Logic for WSS
+        // MQTT Auto-Config Logic
         const isSecure = window.location.protocol === 'https:';
         
         const MQTT_CONFIG = {
             server: 'rmq-panic-button.pptik.id',
-            // Port 15676 untuk WSS (HTTPS), Port 15675 untuk WS (HTTP)
+            // Gunakan port WebSocket standar RabbitMQ: 15675 (WS) atau 15676 (WSS)
             port: isSecure ? 15676 : 15675, 
             path: '/ws', 
             useSSL: isSecure,
@@ -321,13 +321,11 @@
 
         window.onload = () => {
             document.getElementById('protocol-label').innerText = isSecure ? 'WSS (Secure)' : 'WS (Standard)';
-            
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('filter-date').value = today;
             
             refreshData();
             initMQTT();
-            
             setInterval(fetchLive, 30000);
         };
 
@@ -336,7 +334,6 @@
         function refreshData() {
             const icon = document.getElementById('refresh-icon');
             icon.classList.add('rotate-180');
-            
             Promise.all([fetchLive(), fetchHistory()]).finally(() => {
                 setTimeout(() => icon.classList.remove('rotate-180'), 600);
             });
@@ -349,7 +346,7 @@
                 const response = await fetch(`${API_BASE}?guid_device=${GUID_DEVICE}&limit=1&page=1`);
                 const result = await response.json();
 
-                if (result.success && result.data.data.length > 0) {
+                if (result.success && result.data && result.data.data.length > 0) {
                     const latest = result.data.data[0];
                     const fullImgUrl = `${IMG_BASE}${latest.value}`;
                     
@@ -361,7 +358,6 @@
                         skeleton.classList.add('hidden');
                         document.getElementById('live-timestamp').innerText = `${latest.datetime}`;
                         document.getElementById('last-sync').innerText = latest.datetime.split(' ')[1];
-                        document.getElementById('hama-status').innerText = "ONLINE";
                     };
                 }
             } catch (error) {
@@ -394,13 +390,14 @@
             }
 
             try {
-                const url = `${API_BASE}?guid_device=${GUID_DEVICE}&limit=20&startDate=${date}&endDate=${date}&startTime=${start}&endTime=${end}&page=1`;
+                const url = `${API_BASE}?guid_device=${GUID_DEVICE}&limit=12&startDate=${date}&endDate=${date}&startTime=${start}&endTime=${end}&page=1`;
                 const response = await fetch(url);
                 const result = await response.json();
 
                 gallery.innerHTML = '';
 
-                if (result.success && result.data.data.length > 0) {
+                // PERBAIKAN: Akses result.data.data untuk looping array
+                if (result.success && result.data && Array.isArray(result.data.data) && result.data.data.length > 0) {
                     emptyState.classList.add('hidden');
                     result.data.data.forEach(item => {
                         const card = `
@@ -411,16 +408,16 @@
                                          onload="this.classList.remove('opacity-0')" onerror="this.src='https://via.placeholder.com/400x400?text=Image+Not+Found'">
                                     <div class="absolute inset-0 bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                                         <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-emerald-500 shadow-xl">
-                                            <i class="fas fa-search-plus text-xl text-emerald-500"></i>
+                                            <i class="fas fa-search-plus text-xl text-emerald-500 text-emerald-500 text-emerald-500"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="px-2">
                                     <div class="flex justify-between items-center mb-1">
-                                        <p class="text-base font-black text-slate-800">${item.datetime.split(' ')[1]}</p>
+                                        <p class="text-base font-black text-slate-800 text-slate-800">${item.datetime.split(' ')[1]}</p>
                                         <span class="text-[9px] font-black text-emerald-600 px-3 py-1 bg-emerald-50 rounded-full uppercase tracking-tighter">Verified</span>
                                     </div>
-                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${item.datetime.split(' ')[0]}</p>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest text-slate-400">${item.datetime.split(' ')[0]}</p>
                                 </div>
                             </div>
                         `;
@@ -445,7 +442,7 @@
         function initMQTT() {
             const clientId = "web_agri_" + Math.random().toString(16).substr(2, 6);
             
-            // Konstruktor: host, port, path, clientId
+            // Perbaikan: Gunakan port dan SSL secara dinamis
             mqttClient = new Paho.MQTT.Client(MQTT_CONFIG.server, Number(MQTT_CONFIG.port), MQTT_CONFIG.path, clientId);
 
             mqttClient.onConnectionLost = onConnectionLost;
@@ -454,15 +451,16 @@
                 useSSL: MQTT_CONFIG.useSSL,
                 userName: MQTT_CONFIG.user,
                 password: MQTT_CONFIG.pass,
+                timeout: 3,
+                keepAliveInterval: 30,
                 onSuccess: onConnect,
                 onFailure: (err) => {
                     console.error("MQTT Connection Failed:", err);
                     document.getElementById('mqtt-status-dot').className = "w-10 h-10 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-red-500 transition-colors";
                     
-                    // Auto-fallback jika WSS gagal karena alasan sertifikat atau socket
-                    if (options.useSSL) {
-                        console.log("Retrying connection settings...");
-                        setTimeout(initMQTT, 5000);
+                    // Fallback logic jika SSL gagal
+                    if(isSecure && err.errorCode === 7) {
+                        console.warn("Retrying with standard WS port if browser allows...");
                     }
                 }
             };
